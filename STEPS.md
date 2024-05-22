@@ -22,8 +22,6 @@
 
 
 
-
-
 * Creating the Home page by following steps:
     Creating the component and the page.
         Create a directory in src called pages.
