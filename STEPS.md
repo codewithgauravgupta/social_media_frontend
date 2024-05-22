@@ -69,13 +69,18 @@
 
 * We are done with ui for auth, next we will do it for posts. We’ll implement listing, creating, updating, and deleting post features.
 
-
-
-
-
-* Adding the NavBar component, Inside the src/components/ directory, add a new file called Navbar.jsx. 
+# Adding the NavBar and Layout component:
 
 * yarn add timeago.js, swr, @ant-design/icons@4.0.0
+
+* Adding the NavBar component, Inside the `src/components/` directory, add a new file called `Navbar.jsx`. 
+
+* In the src directory, add a new file called utils.js. for random avatars function and other common functions for react app.
+
+* Adding the Layout component, In the `src/components` directory, we’ll add a file called `Layout.jsx`. Also add Layout on `Home` page.
+
+
+
 
 * Next updating a post
 
