@@ -26,11 +26,20 @@
 
 # Creating a protected route wrapper:
 
-* protected routes: Create a new directory in the src directory called `routes` and create a file called `ProtectedRoute.jsx`.
+* protected routes: Create a new directory in the src directory called `routes` and create a file called `ProtectedRoute.jsx`, and add route in `app.js`.
 
-* Adding a registration page
+# Adding a registration page:
 
-* Create login page, Inside the src/components/authentication directory, add a new file called LoginForm.jsx.
+* Create login page, Inside the `src/components/authentication` directory, add a new file called `RegistrationForm.jsx`.
+
+* Registering the registration page route, Inside the src/pages directory, create a file called `Registration.jsx`.
+
+* Next, open App.js and register the page.
+
+* Visit: http://localhost:3000/register/
+
+
+
 
 * Register login page, Inside the src/pages directory, create a file called Login.jsx
 
