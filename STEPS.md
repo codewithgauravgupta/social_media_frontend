@@ -79,10 +79,25 @@
 
 * Adding the Layout component, In the `src/components` directory, we’ll add a file called `Layout.jsx`. Also add Layout on `Home` page.
 
+# Creating a post and toast component:
+
+* In `src/components`, add a new directory called `posts`. This directory will contain all components used for the post feature. We’ll have components to create a post, display a post, and update a post.
+
+* Inside the newly created directory, add a file called `CreatePost.jsx`. This file will contain the code for the logic and the UI to make a post.
+
+* We need toast component to give feedback of creating a post to user. In `src/components`, create a new file called `Toaster.jsx`.
+
+* Adding the toaster to post creation, In the `CreatePost.jsx` file, we will add new states that we will pass as props to the `Toaster` component
+
+* Adding the CreatePost component to the home page.
+
+* we’ve created a Modal component and a form with React Bootstrap to handle data validation and submission. And because feedback is an important aspect of user experience, we’ve added a toaster with React Bootstrap and integrated it with the useContext Hook to notify the user of the result of the requests.
 
 
 
-* Next updating a post
+
+
+
 
 * Deleting a comment
 
