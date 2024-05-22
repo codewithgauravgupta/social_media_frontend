@@ -71,7 +71,9 @@
 
 # Adding the NavBar and Layout component:
 
-* yarn add timeago.js, swr, @ant-design/icons@4.0.0
+* yarn add timeago.js 
+* yarn add swr
+* yarn add @ant-design/icons@4.0.0
 
 * Adding the NavBar component, Inside the `src/components/` directory, add a new file called `Navbar.jsx`. 
 
@@ -92,6 +94,22 @@
 * Adding the CreatePost component to the home page.
 
 * we’ve created a Modal component and a form with React Bootstrap to handle data validation and submission. And because feedback is an important aspect of user experience, we’ve added a toaster with React Bootstrap and integrated it with the useContext Hook to notify the user of the result of the requests.
+
+# Listing and deleting Posts on the Home Page using post component:
+
+* We use the swr library to fetch a list of posts.
+
+* We loop through the list of posts and then pass a post as props to a component called Post, which will show data about a post.
+
+* Inside the `src/components/post/` directory, create a new file called `Post.jsx`. This file will contain the logic to show post data and logic such as like or remove like, deletion, and modification.
+
+* Adding the Post component to the home page
+
+* Lets deal with ... menu to update and delete post, In the `Post.jsx` file, import the Dropdown component from react-bootstrap. Because we will add the logic for post deletion, let’s also import the Toaster component.
+
+* The user can now delete their own post, and that functionality is accessible directly from the Post component.
+
+
 
 
 
