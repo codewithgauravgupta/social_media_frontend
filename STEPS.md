@@ -51,13 +51,27 @@
     email: mouse2@yopmail.com
     password: 12345678
 
+# Refactoring the Authentication Flow Code:
 
+* Create custom hook, Inside the `src` directory, create a new directory called `hooks`. This directory will contain all the Hooks.
 
-* Create custom hook, Inside the src directory, create a new directory called hooks. This directory will contain all the Hooks.
+* Inside the newly created directory, add a file called `user.actions.js`.
 
-* Inside the newly created directory, add a file called user.actions.js.
+* With the functions for retrieving a user, the access and refresh tokens, and the function to set user data in localStorage, we can now call the function in the LoginForm and RegisterForm components.
+
+* We now have a useful Hook, useUserActions, in the user.actions.js file. We will use this Hook to call the login method, replacing the old login logic in the LoginForm.js file.
+
+* Next, we use the other utils functions in the axios helper and the ProtectedRoute component
+
+* We will also tweak axios helper.
+
+* And we are done. We have a pure React logic for the authentication flow, which will help us manage the CRUD operations for the posts and comments.
 
 * We are done with ui for auth, next we will do it for posts. We’ll implement listing, creating, updating, and deleting post features.
+
+
+
+
 
 * Adding the NavBar component, Inside the src/components/ directory, add a new file called Navbar.jsx. 
 

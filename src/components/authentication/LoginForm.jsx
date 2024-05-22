@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useUserActions } from "../../hooks/user.actions";
 
 function LoginForm() {
     const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
     const [form, setForm] = useState({});
     const [error, setError] = useState(null);
+    const userActions = useUserActions();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -23,6 +25,12 @@ function LoginForm() {
             email: form.email,
             password: form.password,
         };
+
+        userActions.login(data).catch((err) => {
+            if (err.message) {
+                setError(err.request.response);
+            }
+        });
 
         axios
             .post("http://ec2-13-238-194-209.ap-southeast-2.compute.amazonaws.com:8000/api/auth/login/", data)
