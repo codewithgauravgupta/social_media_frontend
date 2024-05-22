@@ -18,21 +18,13 @@
 
 * Registering the page in BrowserRouter with a URL in the App.js file
 
+# Writing the Requests Service
 
+* yarn add axios axios-auth-refresh 
 
+* create a directory called `helpers` in the `src` folder of the React project and we’ll add a file called `axios.js`:
 
-
-
-
-
-* Creating the Home page by following steps:
-    Creating the component and the page.
-        Create a directory in src called pages.
-            Inside the pages directory, create a new file called Home.jsx. This file will contain the UI for the Profile page:
-                Register this page in the App.js file
-    Registering the page in BrowserRouter with a URL.
-
-* yarn add axios axios-auth-refresh and create a directory called `helpers` in the src folder of the React project and we’ll add a file called `axios.js`:
+# Creating a protected route wrapper:
 
 * protected routes: Create a new directory in the src directory called `routes` and create a file called `ProtectedRoute.jsx`.
 
