@@ -30,7 +30,7 @@
 
 # Adding a registration page:
 
-* Create login page, Inside the `src/components/authentication` directory, add a new file called `RegistrationForm.jsx`.
+* Create registration form, Inside the `src/components/authentication` directory, add a new file called `RegistrationForm.jsx`.
 
 * Registering the registration page route, Inside the src/pages directory, create a file called `Registration.jsx`.
 
@@ -38,10 +38,20 @@
 
 * Visit: http://localhost:3000/register/
 
+# Creating the Login Page:
+
+* Create login form, Inside the `src/components/authentication` directory, add a new file called `LoginForm.jsx`.
+
+* Register login page, Inside the `src/pages` directory, create a file called `Login.jsx`.
+
+* Add route to app.jsx.
+
+* Test Login: `http://localhost:3000/login/`
+
+    email: mouse2@yopmail.com
+    password: 12345678
 
 
-
-* Register login page, Inside the src/pages directory, create a file called Login.jsx
 
 * Create custom hook, Inside the src directory, create a new directory called hooks. This directory will contain all the Hooks.
 
