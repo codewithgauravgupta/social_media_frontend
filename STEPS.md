@@ -12,8 +12,11 @@
 
 * edit the index.js for browserRouter and import the bootstrap CSS file into the index.js file
 
+# Creating the Home page
 
+* Creating the component and the page, by Create a directory in src called pages. Inside the pages directory, create a new file called `Home.jsx`. This file will contain the UI for the Profile page.
 
+* Registering the page in BrowserRouter with a URL in the App.js file
 
 
 
