@@ -1,3 +1,19 @@
+# Summary:
+
+* Setup React using create-react-app and webpack.
+
+* React for UI using forms, hooks, states, components, pages. 
+
+* backend integration using axios.
+
+* frontend optimization
+
+* testing UI using Jest and RTL libraries.
+
+* Manual and automated deployment on AWS.
+
+* Optimizing the deployment of a React application
+
 # Create React App
 
 * yarn create react-app social_media_frontend
@@ -109,8 +125,36 @@
 
 * The user can now delete their own post, and that functionality is accessible directly from the Post component.
 
+# Updating a Post and Refactoring:
 
+* The update post feature is similar to `CreatePost.jsx`; the difference is that the `UpdatePost` component will receive a post object as props.
 
+* The update component is called in the Post.jsx file 
+
+* Minor refactoring: Firstly, there is no refresh made when a new post is created. As we did for the UpdatePost.jsx component, we can also pass some props to the CreatePost component, Now, every time a user adds a post, they will see the newly created post on the Home page without needing to reload the page.
+    `<CreatePost refresh={posts.mutate} />` in Home.jsx. And we can call the refresh method when a post is successfully created:
+
+    ```javascript
+    function CreatePost(props) {
+      const { refresh } = props;
+      ...
+        axiosService
+          .post("/post/", data)
+          .then(() => {
+            ...
+            refresh();
+          })
+      };
+    ...
+    ```
+
+* Refactoring the Toaster component: The logic to call the component is repeated across all pages that call this component. How can we resolve this? What if we put the Toaster component higher in the component hierarchy and so we are able to call or show the toaster from any child component?
+
+* React provides an interesting way to manage state across parents and child components—context. React Context allows us to share state or modify state across parent and child components more easily, i.e, without the need for explicitly passing prop across the component tree. In the Layout.jsx file, we’ll create a new context using the createContext method
+
+* Then, in the Layout component scope, let’s define the state containing the data that the toaster will use to display information. We will also wrap the component JSX content inside the Context component and add a method to modify the state from any child components of the Layout component.
+
+* we introduced a new function Hook called useMemo, which helps to memorize the context value (caching the value of the context) and avoid the creation of new objects every time there is a rerendering of the Layout component. We will then be able to access the toaster state and call the setToaster function from any child component
 
 
 
@@ -182,3 +226,33 @@ python manage.py migrate
 * Execute tests in container: remove all blank tests.py file before: 
     docker compose exec -T api pytest
 
+# Handling the logout with React:
+
+We have already handled the logout on the React application to a certain extent by just deleting the tokens from the local storage. There is nothing big to modify here, we will just add a function to make a request to the API, and if this request is successful, we will delete the tokens and the user from the local storage of the browser. The current logout logic on the React application is handled in the NavBar component.
+
+Inside the useActions Hook function:
+```javascript
+...
+// Logout the user
+function logout() {
+  return axiosService
+    .post(`${baseURL}/auth/logout/`, { refresh: getRefreshToken() })
+    .then(() => {
+      localStorage.removeItem("auth");
+      navigate("/login");
+    });
+}
+
+// In navbar component
+const handleLogout = () => {
+    userActions.logout().catch((e) =>
+      setToaster({
+        type: "danger",
+        message: "Logout failed",
+        show: true,
+        title: e.data?.detail | "An error occurred.",
+      })
+    );
+  };
+
+```

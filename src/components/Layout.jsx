@@ -1,6 +1,7 @@
-import React from "react";
+import React, { createContext, useMemo, useState } from "react";
 import Navigationbar from "./Navbar";
 
+export const Context = createContext("unknown");
 function Layout(props) {
     return (
         <div>
