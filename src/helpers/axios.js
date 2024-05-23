@@ -6,7 +6,7 @@ import {
 } from "../hooks/user.actions";
 
 const axiosService = axios.create({
-	baseURL: "http://ec2-13-238-194-209.ap-southeast-2.compute.amazonaws.com:8000/",
+	baseURL: process.env.REACT_APP_API_URL,
 	headers: {
 		"Content-Type": "application/json",
 	},
@@ -31,7 +31,7 @@ const refreshAuthLogic = async (failedRequest) => {
 	// const { refresh } = JSON.parse(localStorage.getItem("auth"));
 	return axios
 		.post("/refresh/token/", null, {
-			baseURL: "http://ec2-13-238-194-209.ap-southeast-2.compute.amazonaws.com:8000/",
+			baseURL: process.env.REACT_APP_API_URL,
 			headers: {
 				// Authorization: `Bearer ${refresh}`,
 				Authorization: `Bearer ${getRefreshToken()}`,

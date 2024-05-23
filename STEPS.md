@@ -256,3 +256,101 @@ const handleLogout = () => {
   };
 
 ```
+
+
+
+
+
+# Manual and Auto Deployment of React app on AWS Simple Storage Service (S3) Bucket:
+
+In development mode, React provides an environment for detecting warnings, as well as tools to detect and fix problems in the application and eliminate potential issues. This adds extra code to the project, increasing the bundle size and resulting in a bigger and slower application.
+
+It is crucial to only deploy production-built applications on the internet because of the user experience (UX). According to Google studies, 53% of users leave a website if it takes more than 3 seconds to load. Therefore, we must build the React application we created and deploy the production version.
+
+In development, the React application runs in development mode or local mode. This is where we can see all the warnings and the traceback in case our code crashes. The production mode requires the developers to build the application. This build minifies the code, optimizes the assets (image, CSS files, and so on), produces lighter source maps, and suppresses the warning messages displayed in development mode.
+
+Therefore, the bundle size of the application is drastically reduced, improving page load speed. Keeping this in mind, we will build a production-ready application and deploy it on AWS S3 as a static website.
+
+AWS S3, It is a cloud-based storage service providing high performance, availability, reliability, security, and ridiculous potential for scaling. AWS S3 is mostly used to store static assets so that they are effectively distributed to the internet, and because of the distribution characteristic, AWS S3 is suitable for hosting static websites.
+
+we’ll create an S3 bucket, upload the content of the built React application, and allow public access from the internet. An S3 bucket is just a public storage resource available in AWS that is like an online folder where we can store objects (like a folder on a Google Drive)
+
+* Add Environment Variables: According to the “Create React App” documentation regarding environment variables, project can consume variables declared in your environment as if they were declared locally in your JS files. By default, you will have NODE_ENV defined for you, and any other environment variables starting with REACT_APP_”.
+
+	Create .env at root of project
+
+	modify some pieces of code at `src/helpers/axios.js` and `src/hooks/user.actions.js`. We must update the baseURL variable to read the values from the .env file:
+
+	In axis.js:
+		baseURL: process.env.REACT_APP_API_URL,
+	
+	In user.actions.js:
+		const baseURL = process.env.REACT_APP_API_URL;
+
+* Build react app:
+	yarn build
+
+	The yarn build command creates a bundle of static files of a React application. This bundle is optimized enough to go into production.
+
+	The build is available in the newly created `build` directory. Use ls and cd commands to navigate and view the files in the build directory. 
+
+* Manual Deployment:
+	
+	create an S3 bucket and upload the files and folders.
+
+	In the AWS console menu, choose the S3 service and create a bucket.
+
+	Give bucket name all small case
+
+	disable the “Block all public access” settings so that the React application is visible to the public
+
+	Create Bucket
+
+	select the “Properties” tab, and go to “Static website hosting.” On the page, enable static web hosting
+
+	Fill in “Index document” and “Error document” and submit.
+
+	Note the bucket website endpoint, which will be the URL of your website
+
+	click the “Permissions” tab and select “Bucket Policy.” We will add a policy to grant public access to the bucket, like so:
+		{
+			"Version": "2012-10-17",
+		"Statement": [
+		{
+		"Sid": "Statement1",
+		"Effect": "Allow",
+		"Principal": {
+		"AWS": "*"
+		},
+		"Action": "s3:GetObject",
+		"Resource": "arn:aws:s3:::<bucketname>/*"
+		}
+		]
+		}
+
+	Upload all files inside `build` to s3, dont upload `build` folder, upload contents of it. Upload files and static folder in steps.
+
+	Add CORS_ALLOW_ORIGINS="S3_WEBSITE_URL" to backend.
+
+* Automated deployment using github actions:
+
+	There is a GitHub action for AWS called `configure-aws-credentials` which we use to configure AWS credentials in the workflow to execute a command to upload the content of the build folder in the S3 bucket.
+
+	We will follow workflow of CI/CD:
+
+		Install the dependencies of the project.
+
+		Run tests to make sure the application won’t break in production and to ensure there areno regressions.
+
+		Run the build command to have a production-ready application.
+
+		Deploy on AWS S3.
+
+	Let’s add a new workflow file in the repository `.github/workflows` for the deployment of the React application. Inside the `.github/workflows` directory, create a file called `deploy-frontend.yml`
+
+		name: Build and deploy frontend
+		on:
+		 push:
+		 branches: [ main ]
+
+	create a job called build-test-deploy. Inside this job, we will write the commands to install the React dependencies, run the tests, build the project, and deploy the application to S3. Let’s start by injecting the environment variables:

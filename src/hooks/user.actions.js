@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function useUserActions() {
     const navigate = useNavigate();
-    const baseURL = "http://ec2-13-238-194-209.ap-southeast-2.compute.amazonaws.com:8000/api";
+    const baseURL = process.env.REACT_APP_API_URL;
 
     return {
         login,
